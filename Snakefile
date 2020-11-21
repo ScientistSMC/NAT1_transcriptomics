@@ -25,9 +25,9 @@ STAR_OUT="STAR_hg38_alignment/"
 
 rule all:
 	input:
-		expand(FASTQC_TRIM_DIR+"{sample}_ALL_R1_val_1_fastqc.zip", sample=config["samples"]),
+		expand(FASTQC_TRIM_DIR+"{sample}_ALL_R1_trimmed_fastqc.zip", sample=config["samples"]),
         expand(FASTQC_DIR+"{sample}_ALL_R1_fastqc.html", sample=config["samples"]),
-        expand(FASTQ_TRIM+"{sample}_ALL_R1_val_1.fq.gz", sample=config["samples"]),
+        expand(FASTQ_TRIM+"{sample}_ALL_R1_trimmed.fq.gz", sample=config["samples"]),
         expand(STAR_OUT+"trimmed/{sample}.Aligned.sortedByCoord.out.bam", sample=config["samples"]),
         expand(STAR_OUT+"trimmed/{sample}.Aligned.sortedByCoord.out.bam.bai", sample=config["samples"]),
         "multiqc_fastqc/multiqc_report.html",
@@ -70,7 +70,7 @@ rule fastq_trim:
     input:
         r1=FASTQ+"{sample}_ALL_R1.fastq.gz",
     output:
-        r1=FASTQ_TRIM+"{sample}_ALL_R1_val_1.fq.gz",
+        r1=FASTQ_TRIM+"{sample}_ALL_R1_trimmed.fq.gz",
         r1_trim_report=FASTQ_TRIM+"{sample}_ALL_R1.fastq.gz_trimming_report.txt"
     conda:
         "envs/trim-galore_conda_env.yaml"
@@ -79,10 +79,10 @@ rule fastq_trim:
 
 rule fastqc_trimmed_paired:
     input:
-        FASTQ_TRIM+"{sample}_ALL_R1_val_1.fq.gz"
+        FASTQ_TRIM+"{sample}_ALL_R1_trimmed.fq.gz"
     output:
-        html=FASTQC_TRIM_DIR+"{sample}_ALL_R1_val_1_fastqc.html",
-        zip=FASTQC_TRIM_DIR+"{sample}_ALL_R1_val_1_fastqc.zip",
+        html=FASTQC_TRIM_DIR+"{sample}_ALL_R1_trimmed_fastqc.html",
+        zip=FASTQC_TRIM_DIR+"{sample}_ALL_R1_trimmed_fastqc.zip",
     conda:
         "envs/rna-seq_conda_env.yaml"
     shell:
@@ -93,8 +93,8 @@ rule fastqc_trimmed_paired:
 rule multiqc_fastqc_trimmed:
     input:
         fastqc=FASTQC_TRIM_DIR,
-        html=expand(FASTQC_TRIM_DIR+"{sample}_ALL_R1_val_1_fastqc.html", sample=config["samples"]),
-        zip=expand(FASTQC_TRIM_DIR+"{sample}_ALL_R1_val_1_fastqc.zip", sample=config["samples"])
+        html=expand(FASTQC_TRIM_DIR+"{sample}_ALL_R1_trimmed_fastqc.html", sample=config["samples"]),
+        zip=expand(FASTQC_TRIM_DIR+"{sample}_ALL_R1_trimmed_fastqc.zip", sample=config["samples"])
     output:
         "multiqc_fastqc_trimmed/multiqc_report.html"
     conda:
@@ -156,7 +156,7 @@ rule generate_genome_index:
 
 rule star_2pass_alignment:
     input:
-        r1=FASTQ_TRIM+"{sample}_ALL_R1_val_1.fq.gz",
+        r1=FASTQ_TRIM+"{sample}_ALL_R1_trimmed.fq.gz",
         gtf=REF_GTF,
         indexed_ref= STAR_REF+"SAindex"
     output:

@@ -27,4 +27,4 @@ set -o errexit
 set -x
 
 
-snakemake --cluster "sbatch -t {cluster.time} -p {cluster.partition} --mem {cluster.mem-per-cpu-mb}" --cluster-config cluster.slurm.cheaha.json --latency-wait=15 --use-conda --jobs 10
+snakemake --cluster "sbatch -t {cluster.time} -p {cluster.partition} --mem {cluster.mem-per-cpu-mb}" --cluster-config cluster.slurm.cheaha.json --latency-wait=15 --use-conda --jobs 100

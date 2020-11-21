@@ -13,12 +13,12 @@
     "X_filename_pattern": "%j=jobid, %N=short_hostname, %x=job_name; see https://slurm.schedmd.com/sbatch.html#lbAH",
     "output": "logs/%j.%N.%x.out.txt",
     "error": "logs/%j.%N.%x.err.txt",
-    "X_mail-user": "USER@nmsu.edu  # this is set in snakemakeslurm",
+    "X_mail-user": "samcarli@nmsu.edu  # this is set in snakemakeslurm",
     "mail-type": "ALL"
 },
 
 "generate_genome_index": {
-    "mem-per-cpu-mb": 10000
+    "mem-per-cpu-mb": 20000
 },
 
 "fastqc": {
