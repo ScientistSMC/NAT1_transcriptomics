@@ -18,7 +18,8 @@
 },
 
 "generate_genome_index": {
-    "mem-per-cpu-mb": 20000
+    "mem-per-cpu-mb": 40000,
+    "threads": 12
 },
 
 "fastqc": {
@@ -32,11 +33,12 @@
 },
 
 "star_2pass_alignment": {
-    "mem-per-cpu-mb": 20000,
+    "mem-per-cpu-mb": 40000,
     "X_partition": "# run sinfo to list available partitions and limitations",
     "partition": "normal",
     "X_time": "# Runtime in D-HH:MM:SS",
-    "time": "12:00:00"
+    "time": "12:00:00",
+    "threads": 12
 },
 
 "index_bam": {
