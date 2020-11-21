@@ -212,7 +212,7 @@ rule index_bam:
     output:
         bai=STAR_OUT+"trimmed/{sample}.Aligned.sortedByCoord.out.bam.bai"
     conda:
-        "envs/rna-seq_conda_env.yaml"
+        "envs/samtools_conda_env.yaml"
     shell:
         'samtools index {input.bam} > {output.bai} '
 
