@@ -14,7 +14,8 @@
     "output": "logs/%j.%N.%x.out.txt",
     "error": "logs/%j.%N.%x.err.txt",
     "X_mail-user": "samcarli@nmsu.edu  # this is set in snakemakeslurm",
-    "mail-type": "ALL"
+    "mail-type": "ALL",
+    "threads": 2
 },
 
 "generate_genome_index": {
