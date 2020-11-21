@@ -1,0 +1,53 @@
+{
+"__default__": {
+    "X_documentation": "# This is the default SLURM job config, except threads which are annotated directly on the rule",
+    "job-name": "SM.{rule}.{wildcards}",
+    "X_partition": "# run sinfo to list available partitions and limitations",
+    "partition": "normal",
+    "X_time": "# Runtime in D-HH:MM:SS",
+    "time": "02:00:00",
+    "X_ntasks": "# number of SLURM tasks. We assume that programs are SMP, so all cores must be on the same node, and thus ask for only 1 task",
+    "ntasks": 1,
+    "X_cpus": "# number of threads/cpus comes from the 'threads' attribute on the individual rules in the Snakefile",
+    "mem-per-cpu-mb": 2000,
+    "X_filename_pattern": "%j=jobid, %N=short_hostname, %x=job_name; see https://slurm.schedmd.com/sbatch.html#lbAH",
+    "output": "logs/%j.%N.%x.out.txt",
+    "error": "logs/%j.%N.%x.err.txt",
+    "X_mail-user": "USER@nmsu.edu  # this is set in snakemakeslurm",
+    "mail-type": "ALL"
+},
+
+"generate_genome_index": {
+    "mem-per-cpu-mb": 10000
+},
+
+"fastqc": {
+    "mem-per-cpu-mb": 8000
+},
+
+"fastq_trim": {
+    "mem-per-cpu-mb": 8000,
+    "partition": "normal",
+    "time": "12:00:00"
+},
+
+"star_2pass_alignment": {
+    "mem-per-cpu-mb": 20000,
+    "X_partition": "# run sinfo to list available partitions and limitations",
+    "partition": "normal",
+    "X_time": "# Runtime in D-HH:MM:SS",
+    "time": "12:00:00"
+},
+
+"index_bam": {
+    "mem-per-cpu-mb": 40000
+},
+
+"mark_duplicates": {
+    "mem-per-cpu-mb": 20000
+},
+
+"multi_qc": {
+    "mem-per-cpu-mb": 40000
+}
+}
