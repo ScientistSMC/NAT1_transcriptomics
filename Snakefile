@@ -16,6 +16,7 @@ GTF="gencode.v31.annotation.gtf"
 REF_GTF="ref/gencode_hg38/"+GTF
 STAR_REF= "ref/STARref_hg38/"
 STAR_OUT="STAR_hg38_alignment/"
+READ_LENGTH="73"
 
 ###RULES###
 
@@ -134,7 +135,8 @@ rule download_genome_md5:
 rule generate_genome_index:
     input:
         genome=REF_GENOME,
-        gtf=REF_GTF
+        gtf=REF_GTF,
+        read_length=READ_LENGTH
     output:
         STAR_REF+"SAindex"
     threads: 12
@@ -149,6 +151,7 @@ rule generate_genome_index:
         '--genomeDir {params.star_genome_dir} '
         '--genomeFastaFiles {input.genome} '
         '--sjdbGTFfile {input.gtf} '
+        '--sjdbOverhang {input.read_length} '
 
 
 
